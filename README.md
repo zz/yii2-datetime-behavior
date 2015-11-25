@@ -25,18 +25,17 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+Once the extension is installed, simply use it in your code by adding it to your ActiveRecord behavior. If you don't set the attributes all "date" and "datetime" columns will be automatically selected.
 
 ```php
-
-	use davidhirtz\yii\datetime\DateTimeBehavior;
-
-	public function behaviors()
-	{
-		return [
-			[
-				'class'=>DateTimeBehavior::className(),
-				//'attributes'=>['custom_attribute'],
-			],
-		];
-	}```
+use davidhirtz\yii\datetime\DateTimeBehavior;
+public function behaviors()
+{
+	return [
+		[
+			'class'=>DateTimeBehavior::className(),
+			//'attributes'=>['custom_attribute', 'another_attribute'],
+		],
+	];
+}
+```
