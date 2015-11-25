@@ -29,5 +29,14 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 
+	use davidhirtz\yii\datetime\DateTimeBehavior;
 
-```
+	public function behaviors()
+	{
+		return [
+			[
+				'class'=>DateTimeBehavior::className(),
+				//'attributes'=>['custom_attribute'],
+			],
+		];
+	}```
