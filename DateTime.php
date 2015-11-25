@@ -1,14 +1,15 @@
 <?php
+/**
+ * @author David Hirtz <hello@davidhirtz.com>
+ * @copyright Copyright (c) 2015 David Hirtz
+ * @version 1.0.0
+ */
 
 namespace davidhirtz\yii2\datetime;
 
 /**
  * Class DateTime.
  * @package davidhirtz\yii2\datetime
- *
- * @author David Hirtz <hello@davidhirtz.com>
- * @copyright Copyright &copy; David Hirtz, 2015
- * @version 1.0.0
  */
 class DateTime extends \DateTime
 {
