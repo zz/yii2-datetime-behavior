@@ -1,0 +1,21 @@
+{
+    "name": "davidhirtz/yii2-datetime-behavior",
+    "description": "Initiates database date columns as DateTime PHP classes.",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","datetime"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "David Hirtz",
+            "email": "hello@davidhirtz.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "davidhirtz\\yii2\\datetime\\": ""
+        }
+    }
+}
