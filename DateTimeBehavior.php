@@ -2,7 +2,7 @@
 /**
  * @author David Hirtz <hello@davidhirtz.com>
  * @copyright Copyright (c) 2015 David Hirtz
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace davidhirtz\yii2\datetime;
@@ -38,48 +38,17 @@ class DateTimeBehavior extends Behavior
 	 * @var DateTimeZone
 	 */
 	private $utc;
+
 	/**
 	 * @var DateTimeZone
 	 */
 	private $timezone;
 
 	/**
-	 * Sets attributes by database column type if no default
-	 * attributes were set.
+	 * Sets timezones.
 	 */
 	public function init()
 	{
-		/**
-		 * Search for date columns.
-		 */
-		if($this->attributes===null)
-		{
-			/**
-			 * @var ActiveRecord $owner
-			 */
-			$owner=$this->owner;
-
-			if(!isset(self::$cache[$owner->tableName()]))
-			{
-				self::$cache[$owner->tableName()]=array();
-
-				foreach($owner->getTableSchema()->columns as $column)
-				{
-					if(in_array($column->dbType, array(self::TYPE_DATE, self::TYPE_DATETIME)))
-					{
-						self::$cache[$owner->tableName()][$column->name]=$column->dbType;
-					}
-				}
-
-				echo 'LOADED';
-			}
-
-			$this->attributes=self::$cache[$owner->tableName()];
-		}
-
-		/**
-		 * Sets timezones.
-		 */
 		$this->utc=new DateTimeZone('UTC');
 		$this->timezone=new DateTimeZone(Yii::$app->getTimeZone());
 
@@ -97,7 +66,6 @@ class DateTimeBehavior extends Behavior
 		];
 	}
 
-
 	/**
 	 * Transforms attributes.
 	 */
@@ -108,6 +76,30 @@ class DateTimeBehavior extends Behavior
 		 */
 		$owner=$this->owner;
 
+		/**
+		 * Search for date columns.
+		 */
+		if($this->attributes===null)
+		{
+			if(!isset(self::$cache[$owner->tableName()]))
+			{
+				self::$cache[$owner->tableName()]=array();
+
+				foreach($owner->getTableSchema()->columns as $column)
+				{
+					if(in_array($column->dbType, array(self::TYPE_DATE, self::TYPE_DATETIME)))
+					{
+						self::$cache[$owner->tableName()][$column->name]=$column->dbType;
+					}
+				}
+			}
+
+			$this->attributes=self::$cache[$owner->tableName()];
+		}
+
+		/**
+		 * Transform attributes.
+		 */
 		foreach($this->attributes as $column=>$type)
 		{
 			if(is_numeric($column))
