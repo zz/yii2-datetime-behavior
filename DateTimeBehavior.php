@@ -10,6 +10,10 @@ use Yii;
 /**
  * Class DateTimeBehavior
  * @package davidhirtz\yii2\behaviors
+ *
+ * @author David Hirtz <hello@davidhirtz.com>
+ * @copyright Copyright &copy; David Hirtz, 2015
+ * @version 1.0.0
  */
 class DateTimeBehavior extends Behavior
 {
