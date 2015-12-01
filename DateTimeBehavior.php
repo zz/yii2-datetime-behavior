@@ -131,6 +131,7 @@ class DateTimeBehavior extends Behavior
 				}
 
 				$owner->setAttribute($column, $attribute->setTimeZone($this->timezone));
+				$owner->setOldAttribute($column, $owner->getAttribute($column));
 			}
 		}
 	}
