@@ -16,6 +16,11 @@ class DateTimeValidator extends \yii\validators\Validator
 	/**
 	 * @var string
 	 */
+	public $dateClass;
+
+	/**
+	 * @var string
+	 */
 	public $timeZone;
 
 	/**
@@ -33,6 +38,11 @@ class DateTimeValidator extends \yii\validators\Validator
 			$this->timeZone=Yii::$app->getTimeZone();
 		}
 
+		if(!$this->dateClass)
+		{
+			$this->dateClass='\davidhirtz\yii2\datetime\DateTime';
+		}
+
 		parent::init();
 	}
 
@@ -43,11 +53,11 @@ class DateTimeValidator extends \yii\validators\Validator
 	 */
 	public function validateAttribute($model, $attribute)
 	{
-		if(!$model->getAttribute($attribute) instanceof DateTime)
+		if(!$model->getAttribute($attribute) instanceof $this->dateClass)
 		{
 			try
 			{
-				$model->setAttribute($attribute, @new DateTime($model->getAttribute($attribute), new \DateTimeZone($this->timeZone)));
+				$model->setAttribute($attribute, @new $this->dateClass($model->getAttribute($attribute), new \DateTimeZone($this->timeZone)));
 			}
 			catch(\Exception $ex)
 			{
