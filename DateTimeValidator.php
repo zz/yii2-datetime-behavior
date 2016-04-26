@@ -53,11 +53,11 @@ class DateTimeValidator extends \yii\validators\Validator
 	 */
 	public function validateAttribute($model, $attribute)
 	{
-		if(!$model->getAttribute($attribute) instanceof $this->dateClass)
+		if(!$model->{$attribute} instanceof $this->dateClass)
 		{
 			try
 			{
-				$model->setAttribute($attribute, @new $this->dateClass($model->getAttribute($attribute), new \DateTimeZone($this->timeZone)));
+				$model->{$attribute}=@new $this->dateClass($model->{$attribute}, new \DateTimeZone($this->timeZone));
 			}
 			catch(\Exception $ex)
 			{
