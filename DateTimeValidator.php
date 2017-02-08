@@ -1,10 +1,11 @@
 <?php
 /**
  * @author David Hirtz <hello@davidhirtz.com>
- * @copyright Copyright (c) 2015 David Hirtz
- * @version 1.0.2
+ * @copyright Copyright (c) 2017 David Hirtz
+ * @version 1.1
  */
 namespace davidhirtz\yii2\datetime;
+use DateTimeZone;
 use Yii;
 
 /**
@@ -21,7 +22,7 @@ class DateTimeValidator extends \yii\validators\Validator
 	/**
 	 * @var string
 	 */
-	public $timeZone;
+	public $timezone;
 
 	/**
 	 * Sets default values.
@@ -33,9 +34,9 @@ class DateTimeValidator extends \yii\validators\Validator
 			$this->message=Yii::t('yii', 'The format of {attribute} is invalid.');
 		}
 
-		if($this->timeZone===null)
+		if(!$this->timezone)
 		{
-			$this->timeZone=Yii::$app->getTimeZone();
+			$this->timezone=new DateTimeZone(Yii::$app->getTimeZone());
 		}
 
 		if(!$this->dateClass)
@@ -57,7 +58,7 @@ class DateTimeValidator extends \yii\validators\Validator
 		{
 			try
 			{
-				$model->{$attribute}=@new $this->dateClass($model->{$attribute}, new \DateTimeZone($this->timeZone));
+				$model->{$attribute}=@new $this->dateClass($model->{$attribute}, new \DateTimeZone($this->timezone));
 			}
 			catch(\Exception $ex)
 			{

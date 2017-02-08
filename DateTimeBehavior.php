@@ -1,8 +1,8 @@
 <?php
 /**
  * @author David Hirtz <hello@davidhirtz.com>
- * @copyright Copyright (c) 2015 David Hirtz
- * @version 1.0.1
+ * @copyright Copyright (c) 2017 David Hirtz
+ * @version 1.1
  */
 
 namespace davidhirtz\yii2\datetime;
@@ -25,32 +25,40 @@ class DateTimeBehavior extends Behavior
 	/**
 	 * @var array list of attributes that should be transformed to DateTime instances.
 	 * This can be either an array of attribute names as values, or attribute names as
-	 * keys with the corresponding database column type date, datetime or int as values.
+	 * keys with the corresponding database column type date, datetime or int as values
+	 * or a given DateTime class.
 	 */
 	public $attributes;
 
 	/**
+	 * @var DateTimeZone
+	 */
+	public $timezone;
+
+	/**
+	 * @var DateTimeZone
+	 */
+	public $utc;
+
+	/**
 	 * @var array
 	 */
-	static private $cache=array();
-
-	/**
-	 * @var DateTimeZone
-	 */
-	private $utc;
-
-	/**
-	 * @var DateTimeZone
-	 */
-	private $timezone;
+	private static $cache=[];
 
 	/**
 	 * Sets timezones.
 	 */
 	public function init()
 	{
-		$this->utc=new DateTimeZone('UTC');
-		$this->timezone=new DateTimeZone(Yii::$app->getTimeZone());
+		if(!$this->utc)
+		{
+			$this->utc=new DateTimeZone('UTC');
+		}
+
+		if(!$this->timezone)
+		{
+			$this->timezone=new DateTimeZone(Yii::$app->getTimeZone());
+		}
 
 		parent::init();
 	}
@@ -83,11 +91,11 @@ class DateTimeBehavior extends Behavior
 		{
 			if(!isset(self::$cache[$owner->tableName()]))
 			{
-				self::$cache[$owner->tableName()]=array();
+				self::$cache[$owner->tableName()]=[];
 
 				foreach($owner->getTableSchema()->columns as $column)
 				{
-					if(in_array($column->dbType, array(self::TYPE_DATE, self::TYPE_DATETIME)))
+					if(in_array($column->dbType, [self::TYPE_DATE, self::TYPE_DATETIME]))
 					{
 						self::$cache[$owner->tableName()][$column->name]=$column->dbType;
 					}
@@ -128,9 +136,13 @@ class DateTimeBehavior extends Behavior
 					case self::TYPE_TIMESTAMP:
 						$attribute=new Timestamp($attribute, $this->utc);
 						break;
+
+					default:
+						$attribute=new $type($attribute, $this->utc);
+						break;
 				}
 
-				$owner->setAttribute($column, $attribute->setTimeZone($this->timezone));
+				$owner->setAttribute($column, $attribute->setTimezone($this->timezone));
 				$owner->setOldAttribute($column, $owner->getAttribute($column));
 			}
 		}
