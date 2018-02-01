@@ -2,7 +2,7 @@
 /**
  * @author David Hirtz <hello@davidhirtz.com>
  * @copyright Copyright (c) 2017 David Hirtz
- * @version 1.1.1
+ * @version 1.1.2
  */
 namespace davidhirtz\yii2\datetime;
 use DateTimeZone;
@@ -58,7 +58,12 @@ class DateTimeValidator extends \yii\validators\Validator
 		{
 			try
 			{
-				$model->{$attribute}=@new $this->dateClass($model->{$attribute}, $this->timezone);
+				$callback=function($matches)
+				{
+					return $matches[2].'/'.$matches[1].'/'.($matches[3] ?: date('Y'));
+				};
+
+				$model->{$attribute}=@new $this->dateClass(preg_replace_callback('#^(\d{1,2})\.(\d{1,2})\.?(\d{0,4})#', $callback, $model->{$attribute}), $this->timezone);
 			}
 			catch(\Exception $ex)
 			{
