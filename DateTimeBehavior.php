@@ -1,11 +1,11 @@
 <?php
 /**
- * @author David Hirtz <hello@davidhirtz.com>
+ * @author David Hirtz <hello@easyconn.com>
  * @copyright Copyright (c) 2017 David Hirtz
  * @version 1.1
  */
 
-namespace davidhirtz\yii2\datetime;
+namespace easyconn\yii2\datetime;
 
 use DateTimeZone;
 use yii\base\Behavior;
@@ -14,7 +14,7 @@ use Yii;
 
 /**
  * Class DateTimeBehavior
- * @package davidhirtz\yii2\behaviors
+ * @package easyconn\yii2\behaviors
  */
 class DateTimeBehavior extends Behavior
 {

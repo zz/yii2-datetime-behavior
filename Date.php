@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-namespace davidhirtz\yii2\datetime;
+namespace easyconn\yii2\datetime;
 
 /**
  * Class Date.
- * @package davidhirtz\yii2\datetime
+ * @package easyconn\yii2\datetime
  */
 class Date extends \DateTime
 {

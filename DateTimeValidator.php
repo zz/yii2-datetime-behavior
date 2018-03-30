@@ -1,10 +1,10 @@
 <?php
 /**
- * @author David Hirtz <hello@davidhirtz.com>
+ * @author David Hirtz <hello@easyconn.com>
  * @copyright Copyright (c) 2017 David Hirtz
  * @version 1.1.2
  */
-namespace davidhirtz\yii2\datetime;
+namespace easyconn\yii2\datetime;
 use DateTimeZone;
 use Yii;
 
@@ -41,7 +41,7 @@ class DateTimeValidator extends \yii\validators\Validator
 
 		if(!$this->dateClass)
 		{
-			$this->dateClass='\davidhirtz\yii2\datetime\DateTime';
+			$this->dateClass='\easyconn\yii2\datetime\DateTime';
 		}
 
 		parent::init();

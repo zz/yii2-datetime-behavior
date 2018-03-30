@@ -1,5 +1,5 @@
 {
-    "name": "davidhirtz/yii2-datetime-behavior",
+    "name": "easyconn/yii2-datetime-behavior",
     "description": "Initiates database date columns as DateTime PHP classes.",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","datetime"],
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "davidhirtz\\yii2\\datetime\\": ""
+            "easyconn\\yii2\\datetime\\": ""
         }
     }
 }
